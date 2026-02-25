@@ -440,6 +440,12 @@ impl GameBoyAdvance {
         self.sysbus.io.gpu.get_frame_buffer()
     }
 
+    /// Read a single byte from the GBA address space using the debug bus (no side effects).
+    pub fn debug_read_8(&mut self, addr: u32) -> u8 {
+        use arm7tdmi::memory::DebugRead;
+        (*self.sysbus).debug_read_8(addr)
+    }
+
     /// Reset the emulator
     pub fn soft_reset(&mut self) {
         self.cpu.reset();
